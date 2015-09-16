@@ -19,5 +19,11 @@
         console.log('Command-line input received:');
         console.log('  username: ' + result.username);
         console.log('  email: ' + result.email);
+        
+        while (true) {} // do the hamster
       }
   });
+  
+  setInterval(function() {
+    console.log("hello");
+  }, 1000);
