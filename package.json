@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/ziad-saab/node-basic-demo",
   "dependencies": {
+    "prompt": "^0.2.14",
     "request": "^2.62.0"
   }
 }
