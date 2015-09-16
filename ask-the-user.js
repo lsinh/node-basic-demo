@@ -1,5 +1,5 @@
   var prompt = require('prompt');
-
+  var strManip = require('./my-modules/string-manipulation'); // .js is optional
   //
   // Start the prompt
   //
@@ -19,8 +19,10 @@
         console.log('Command-line input received:');
         console.log('  username: ' + result.username);
         console.log('  email: ' + result.email);
+        console.log(strManip)
+        console.log('The first letter of your username is ' + strManip.getFirstChar(result.username));
         
-        while (true) {} // do the hamster
+        //while (true) {} // do the hamster
       }
   });
   
