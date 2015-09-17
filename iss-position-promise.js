@@ -4,18 +4,13 @@ var prompt = require('prompt');
 var requestPromise = require('request-promise');
 var promptPromise = require('prompt-promise');
 
-var issLat, issLng;
+var Promise = require('bluebird');
 
+var issPositionPromise = requestPromise('http://api.open-notify.org/iss-now.json').then(function(res) {
+    return JSON.parse(res);
+});
 
-
-requestPromise('http://api.open-notify.org/iss-now.json').then(function(res1) {
-    res1 = JSON.parse(res1);
-    issLat = res1.iss_position.latitude;
-    issLng = res1.iss_position.longitude;
-    
-    return promptPromise('location');
-    
-}).then(function(res2) {
+var userLocationPromise = promptPromise('location').then(function(res2) {
     var userLocation = res2;
     
     return requestPromise('https://maps.googleapis.com/maps/api/geocode/json?address=' + userLocation);
@@ -26,5 +21,13 @@ requestPromise('http://api.open-notify.org/iss-now.json').then(function(res1) {
     var userLat = location.lat;
     var userLng = location.lng;
     
-    console.log(issLat, issLng, userLat, userLng);
+    return {
+        userLat: userLat,
+        userLng: userLng
+        
+    };
+});
+
+Promise.all([issPositionPromise, userLocationPromise]).then(function(results) {
+    console.log(results);
 });
